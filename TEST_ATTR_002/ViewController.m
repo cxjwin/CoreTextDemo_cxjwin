@@ -46,8 +46,7 @@ static CGFloat widthCallback(void *refCon){
   self.emojiDic = [[NSDictionary alloc] initWithContentsOfFile:emojiFilePath];
   
   // 我们需要绘制的文本内容
-  self.testText = @"http://t.cn/123QHz http://t.cn/1er6Hz [兔子][熊猫][给力][浮云][熊猫]   http://t.cn/1er6Hz   [熊猫][熊猫][熊猫][熊猫] Hello World 你好世界[熊猫][熊猫]";
-  
+  self.testText = @"http://t.cn/123QHz http://t.cn/1er6Hz [兔子][熊猫][给力][浮云][熊猫]   http://t.cn/1er6Hz   [熊猫][熊猫][熊猫][熊猫] Hello World 你好世界[熊猫][熊猫]熊猫熊猫熊猫熊猫熊猫熊猫熊猫熊猫熊猫熊猫熊猫aaaaaaaaaaa";
   // 初始化文字界面
   CGRect screenBounds = [[UIScreen mainScreen] bounds];
   CGRect frame = CGRectMake(0, 0, 100, 100);
@@ -126,7 +125,7 @@ static CGFloat widthCallback(void *refCon){
     
     if (location < [text length]) {
       NSRange range = NSMakeRange(location, [text length] - location);
-      NSString *subStr = [text substringWithRange:NSMakeRange(location, range.location - location)];
+      NSString *subStr = [text substringWithRange:range];
       NSMutableAttributedString *attSubStr = [[NSMutableAttributedString alloc] initWithString:subStr];
       [newStr appendAttributedString:attSubStr];
     }
@@ -163,7 +162,7 @@ static CGFloat widthCallback(void *refCon){
                      value:[NSValue valueWithRange:_range] 
                      range:_range];
     }
-    
+    NSLog(@"%@", newStr);
     // 根据绘文字计算一个建议的尺寸，那么我们绘制的区域会刚好合适
     self.textView.attributedString = newStr;
     CGRect frame = self.textView.frame;
