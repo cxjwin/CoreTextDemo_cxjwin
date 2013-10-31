@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+@class CoreTextView;
+
 @interface ViewController : UIViewController
+
+@property (strong, nonatomic) CoreTextView *textView;
 
 @end

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		559413CE17A67C4800A3BC91 /* CoreTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 559413CD17A67C4800A3BC91 /* CoreTextView.m */; };
+		55F01ADA1822347800B14D65 /* NSString+Weibo.m in Sources */ = {isa = PBXBuildFile; fileRef = 55F01AD91822347800B14D65 /* NSString+Weibo.m */; };
 		55F404111794DD66001EAF4B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55F404101794DD66001EAF4B /* UIKit.framework */; };
 		55F404131794DD66001EAF4B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55F404121794DD66001EAF4B /* Foundation.framework */; };
 		55F404151794DD66001EAF4B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55F404141794DD66001EAF4B /* CoreGraphics.framework */; };
@@ -130,6 +131,8 @@
 /* Begin PBXFileReference section */
 		559413CC17A67C4800A3BC91 /* CoreTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreTextView.h; sourceTree = "<group>"; };
 		559413CD17A67C4800A3BC91 /* CoreTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreTextView.m; sourceTree = "<group>"; };
+		55F01AD81822347800B14D65 /* NSString+Weibo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Weibo.h"; sourceTree = "<group>"; };
+		55F01AD91822347800B14D65 /* NSString+Weibo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Weibo.m"; sourceTree = "<group>"; };
 		55F4040D1794DD66001EAF4B /* CoreTextDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoreTextDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		55F404101794DD66001EAF4B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		55F404121794DD66001EAF4B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -272,7 +275,6 @@
 		55F404041794DD66001EAF4B = {
 			isa = PBXGroup;
 			children = (
-				55F404331794DD72001EAF4B /* CoreText.framework */,
 				55F404161794DD66001EAF4B /* CoreTextDemo */,
 				55F4040F1794DD66001EAF4B /* Frameworks */,
 				55F4040E1794DD66001EAF4B /* Products */,
@@ -290,6 +292,7 @@
 		55F4040F1794DD66001EAF4B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				55F404331794DD72001EAF4B /* CoreText.framework */,
 				55F404101794DD66001EAF4B /* UIKit.framework */,
 				55F404121794DD66001EAF4B /* Foundation.framework */,
 				55F404141794DD66001EAF4B /* CoreGraphics.framework */,
@@ -300,6 +303,8 @@
 		55F404161794DD66001EAF4B /* CoreTextDemo */ = {
 			isa = PBXGroup;
 			children = (
+				55F01AD81822347800B14D65 /* NSString+Weibo.h */,
+				55F01AD91822347800B14D65 /* NSString+Weibo.m */,
 				55F4041F1794DD66001EAF4B /* AppDelegate.h */,
 				55F404201794DD66001EAF4B /* AppDelegate.m */,
 				55F404281794DD66001EAF4B /* ViewController.h */,
@@ -611,6 +616,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55F01ADA1822347800B14D65 /* NSString+Weibo.m in Sources */,
 				55F4041D1794DD66001EAF4B /* main.m in Sources */,
 				55F404211794DD66001EAF4B /* AppDelegate.m in Sources */,
 				55F4042A1794DD66001EAF4B /* ViewController.m in Sources */,
