@@ -24,7 +24,7 @@
     // 我们需要绘制的文本内容
     NSString *text 
     = @"http://t.cn/123QHz http://t.cn/1er6Hz [兔子][熊猫][给力][浮云][熊猫]   http://t.cn/1er6Hz   \
-    [熊猫][熊猫][熊猫][熊猫] Hello World 你好世界[熊猫][熊猫]熊猫熊猫熊猫熊猫熊猫熊猫熊猫熊猫熊猫熊猫熊猫aaaaaaaaaaa";
+    [熊猫][熊猫][熊猫][熊猫] Hello World 你好世界[熊猫][熊猫]熊猫熊猫熊猫熊猫熊猫熊猫熊猫熊猫熊猫熊猫熊猫aaaaaaaaaaa                 dddd       [熊猫]";
     
     NSMutableAttributedString *newText = [text transformText];
     

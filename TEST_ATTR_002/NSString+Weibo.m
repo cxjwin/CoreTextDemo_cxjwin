@@ -72,13 +72,13 @@ NSDictionary *SinaEmojiDictionary()
         NSString *imageName = [SinaEmojiDictionary() objectForKey:emojiKey];
         if (imageName) {
             // 这里不用空格，空格有个问题就是连续空格的时候只显示在一行
-            NSMutableAttributedString *replaceStr = [[NSMutableAttributedString alloc] initWithString:@"-"];
+            NSMutableAttributedString *replaceStr = [[NSMutableAttributedString alloc] initWithString:CTAttachmentCharacter];
             NSRange __range = NSMakeRange([newStr length], 1);
             [newStr appendAttributedString:replaceStr];
             
             // 定义回调函数
             CTRunDelegateCallbacks callbacks;
-            callbacks.version = kCTRunDelegateVersion1;
+            callbacks.version = kCTRunDelegateCurrentVersion;
             callbacks.getAscent = ascentCallback;
             callbacks.getDescent = descentCallback;
             callbacks.getWidth = widthCallback;
@@ -86,8 +86,8 @@ NSDictionary *SinaEmojiDictionary()
             
             // 这里设置下需要绘制的图片的大小，这里我自定义了一个结构体以便于存储数据
             CustomGlyphMetricsRef metrics = malloc(sizeof(CustomGlyphMetrics));
-            metrics->ascent = 11;
-            metrics->descent = 4;
+            metrics->ascent = 12;
+            metrics->descent = 3;
             metrics->width = 14;
             CTRunDelegateRef delegate = CTRunDelegateCreate(&callbacks, metrics);
             [newStr addAttribute:(NSString *)kCTRunDelegateAttributeName 

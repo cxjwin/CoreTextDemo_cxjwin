@@ -9,6 +9,9 @@
 #import <Foundation/Foundation.h>
 #import <CoreText/CoreText.h>
 
+#define CTAttachmentChar "\uFFFC"
+#define CTAttachmentCharacter @"\uFFFC"
+
 extern NSString *const kCustomGlyphAttributeType;
 extern NSString *const kCustomGlyphAttributeRange;
 extern NSString *const kCustomGlyphAttributeImageName;
