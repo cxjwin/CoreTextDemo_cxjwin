@@ -37,6 +37,10 @@ static Boolean isTouchRange(CFIndex index, CFRange touch_range, CFRange run_rang
 	CTFrameRef textFrame;
 	CFRange touchRange;
 	CFIndex touchIndex;
+	
+	CFIndex beginIndex;
+	CFIndex endIndex;
+	
 	UITouchPhase touchPhase;
 
 	CGPoint beginPoint;
@@ -83,8 +87,27 @@ static Boolean isTouchRange(CFIndex index, CFRange touch_range, CFRange run_rang
 			for (CFIndex i = 0; i < CFArrayGetCount(lines); ++i) {
 				// 获取CTLine中的CTRun
 				CTLineRef line = CFArrayGetValueAtIndex(lines, i);
+				
+				CGFloat ascent;
+				CGFloat descent;
+				CGFloat leading;
+				CTLineGetTypographicBounds(line, &ascent, &descent, &leading);
+				
+				if (touchPhase == UITouchPhaseBegan) {
+					CGPoint mirrorPoint = CGPointFlipped(beginPoint, rect);
+					if ((origins[i].y - descent <= mirrorPoint.y) &&
+						(origins[i].y + ascent >= mirrorPoint.y)) {
+						beginIndex = CTLineGetStringIndexForPosition(line, mirrorPoint);
+					}
+				} else if (touchPhase == UITouchPhaseEnded) {
+					CGPoint mirrorPoint = CGPointFlipped(endPoint, rect);
+					if ((origins[i].y - descent <= mirrorPoint.y) &&
+						(origins[i].y + ascent >= mirrorPoint.y)) {
+						endIndex = CTLineGetStringIndexForPosition(line, mirrorPoint);
+					}
+				}
+				
 				CFArrayRef runs = CTLineGetGlyphRuns(line);
-
 				for (CFIndex j = 0; j < CFArrayGetCount(runs); ++j) {
 					CTRunRef run = CFArrayGetValueAtIndex(runs, j);
 					CFRange range = CTRunGetStringRange(run);
