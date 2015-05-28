@@ -10,29 +10,29 @@
 	<string>CoreTextDemo</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>B942AF16-E5A7-4CD7-BDDD-17B59D5F1A4B</key>
+		<key>BCA98991C3EF3CAAAF951FB6FBB15700A4C90C8F</key>
 		<string>https://github.com/cxjwin/CoreTextDemo_cxjwin.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>CoreTextDemo.xcodeproj/project.xcworkspace</string>
+	<string>CoreTextDemo.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>B942AF16-E5A7-4CD7-BDDD-17B59D5F1A4B</key>
+		<key>BCA98991C3EF3CAAAF951FB6FBB15700A4C90C8F</key>
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/cxjwin/CoreTextDemo_cxjwin.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>B942AF16-E5A7-4CD7-BDDD-17B59D5F1A4B</string>
+	<string>BCA98991C3EF3CAAAF951FB6FBB15700A4C90C8F</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>B942AF16-E5A7-4CD7-BDDD-17B59D5F1A4B</string>
+			<string>BCA98991C3EF3CAAAF951FB6FBB15700A4C90C8F</string>
 			<key>IDESourceControlWCCName</key>
 			<string>CoreTextDemo_cxjwin</string>
 		</dict>

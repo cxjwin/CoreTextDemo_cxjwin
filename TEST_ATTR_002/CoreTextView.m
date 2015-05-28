@@ -33,16 +33,6 @@ static Boolean isTouchRange(CFIndex index, CFRange touch_range, CFRange run_rang
 }
 
 @implementation CoreTextView  {
-<<<<<<< HEAD
-	CTFrameRef textFrame;
-	CFRange touchRange;
-	CFIndex touchIndex;
-	
-	CFIndex beginIndex;
-	CFIndex endIndex;
-	
-=======
->>>>>>> FETCH_HEAD
 	UITouchPhase touchPhase;
     
     CGPoint beginPoint;
@@ -78,122 +68,6 @@ static Boolean isTouchRange(CFIndex index, CFRange touch_range, CFRange run_rang
 }
 
 - (void)drawRect:(CGRect)rect {
-<<<<<<< HEAD
-	if (textFrame) {
-		@autoreleasepool {
-			CGContextRef context = UIGraphicsGetCurrentContext();
-
-			CGAffineTransform flipVertical = CGAffineTransformMake(1, 0, 0, -1, 0, rect.size.height);
-			CGContextConcatCTM(context, flipVertical);
-			CGContextSetTextDrawingMode(context, kCGTextFill);
-
-			// 获取CTFrame中的CTLine
-			CFArrayRef lines = CTFrameGetLines(textFrame);
-			CGPoint origins[CFArrayGetCount(lines)];
-			CTFrameGetLineOrigins(textFrame, CFRangeMake(0, 0), origins);
-
-			for (CFIndex i = 0; i < CFArrayGetCount(lines); ++i) {
-				// 获取CTLine中的CTRun
-				CTLineRef line = CFArrayGetValueAtIndex(lines, i);
-				
-				CGFloat ascent;
-				CGFloat descent;
-				CGFloat leading;
-				CTLineGetTypographicBounds(line, &ascent, &descent, &leading);
-				
-				if (touchPhase == UITouchPhaseBegan) {
-					CGPoint mirrorPoint = CGPointFlipped(beginPoint, rect);
-					if ((origins[i].y - descent <= mirrorPoint.y) &&
-						(origins[i].y + ascent >= mirrorPoint.y)) {
-						beginIndex = CTLineGetStringIndexForPosition(line, mirrorPoint);
-					}
-				} else if (touchPhase == UITouchPhaseEnded) {
-					CGPoint mirrorPoint = CGPointFlipped(endPoint, rect);
-					if ((origins[i].y - descent <= mirrorPoint.y) &&
-						(origins[i].y + ascent >= mirrorPoint.y)) {
-						endIndex = CTLineGetStringIndexForPosition(line, mirrorPoint);
-					}
-				}
-				
-				CFArrayRef runs = CTLineGetGlyphRuns(line);
-				for (CFIndex j = 0; j < CFArrayGetCount(runs); ++j) {
-					CTRunRef run = CFArrayGetValueAtIndex(runs, j);
-					CFRange range = CTRunGetStringRange(run);
-					CGContextSetTextPosition(context, origins[i].x, origins[i].y);
-
-					// 获取CTRun的属性
-					NSDictionary *attDic = (__bridge NSDictionary *)CTRunGetAttributes(run);
-					NSNumber *num = [attDic objectForKey:kCustomGlyphAttributeType];
-					if (num) {
-						// 不管是绘制链接还是表情，我们都需要知道绘制区域的大小，所以我们需要计算下
-						CGRect runBounds;
-						CGFloat ascent;
-						CGFloat descent;
-						CGFloat leading;
-						runBounds.size.width =
-						    CTRunGetTypographicBounds(run, CFRangeMake(0, 0), &ascent, &descent, &leading);
-
-						runBounds.size.height = ascent + descent;
-						CGFloat xOffset = CTLineGetOffsetForStringIndex(line, CTRunGetStringIndicesPtr(run)[0], NULL);
-						runBounds.origin.x = origins[i].x + xOffset;
-						runBounds.origin.y = origins[i].y - descent;
-
-						int type = [num intValue];
-						if (type == CustomGlyphAttributeURL) { // 如果是绘制链接
-							// 先取出链接的文字范围，后算计算点击区域的时候要用
-							NSValue *value = [attDic valueForKey:kCustomGlyphAttributeRange];
-							NSRange _range = [value rangeValue];
-							CFRange linkRange = CFRangeMake(_range.location, _range.length);
-
-							// 我们先绘制背景，不然文字会被背景覆盖
-							CGPoint mirrorBeginPoint = CGPointFlipped(beginPoint, rect);
-							if (touchPhase == UITouchPhaseBegan && CGRectContainsPoint(runBounds, mirrorBeginPoint)) { // 点击开始
-//								if (isTouchRange(touchIndex, linkRange, range)) { // 如果点击区域落在链接区域内
-									CGColorRef tempColor = CGColorCreateCopyWithAlpha([UIColor lightGrayColor].CGColor, 1);
-									CGContextSetFillColorWithColor(context, tempColor);
-									CGColorRelease(tempColor);
-									CGContextFillRect(context, runBounds);
-//								}
-							} else { // 点击结束
-								if (isTouchRange(touchIndex, linkRange, range)) { // 如果点击区域落在链接区域内
-									CGContextSetFillColorWithColor(context, [UIColor clearColor].CGColor);
-									CGContextFillRect(context, runBounds);
-								}
-
-								CGPoint mirrorEndPoint = CGPointFlipped(endPoint, rect);
-								if (touchPhase == UITouchPhaseEnded &&
-								    CGRectContainsPoint(runBounds, mirrorEndPoint)) {
-									if ([_delegate respondsToSelector:@selector(touchedURLWithURLStr:)]) {
-										[_delegate touchedURLWithURLStr:[self.attributedString.string substringWithRange:_range]];
-									}
-								}
-							}
-
-							// 这里需要绘制下划线，记住CTRun是不会自动绘制下滑线的
-							// 即使你设置了这个属性也不行
-							// CTRun.h中已经做出了相应的说明
-							// 所以这里的下滑线我们需要自己手动绘制
-							CGContextSetStrokeColorWithColor(context, [UIColor blueColor].CGColor);
-							CGContextSetLineWidth(context, 0.5);
-							CGContextMoveToPoint(context, runBounds.origin.x, runBounds.origin.y);
-							CGContextAddLineToPoint(context, runBounds.origin.x + runBounds.size.width, runBounds.origin.y);
-							CGContextStrokePath(context);
-
-							// 绘制文字
-							CTRunDraw(run, context, CFRangeMake(0, 0));
-						} else if (type == CustomGlyphAttributeImage) { // 如果是绘制表情
-							// 表情区域是不需要文字的，所以我们只进行图片的绘制
-							NSString *imageName = [attDic objectForKey:kCustomGlyphAttributeImageName];
-							UIImage *image = [UIImage imageNamed:imageName];
-							CGContextDrawImage(context, runBounds, image.CGImage);
-						}
-					} else { // 没有特殊处理的时候我们只进行文字的绘制
-						CTRunDraw(run, context, CFRangeMake(0, 0));
-					}
-				}
-			}
-		}
-=======
 	if (self.attributedString) {
         
         CTFramesetterRef framesetter =
@@ -347,7 +221,6 @@ static Boolean isTouchRange(CFIndex index, CFRange touch_range, CFRange run_rang
         CFRelease(framesetter);
         CGPathRelease(path);
         CFRelease(textFrame);
->>>>>>> FETCH_HEAD
 	}
 }
 
